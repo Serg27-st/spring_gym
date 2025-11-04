@@ -86,10 +86,10 @@ public class InventarioController {
               upload.deleteImage(i.getImagen());
           }
 
-               String nombreImagen = upload.saveImage(file);
+          String nombreImagen = upload.saveImage(file);
           inventario.setImagen(nombreImagen);
           }
-          
+          inventario.setSocio(i.getSocio());
           inventarioService.update(inventario);
      return "redirect:/inventarios";
     }

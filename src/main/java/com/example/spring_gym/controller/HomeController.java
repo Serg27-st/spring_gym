@@ -20,14 +20,10 @@ public class HomeController {
 
 	@Autowired
 	private InventarioService inventarioService;
-	
-
-	
 
 	@GetMapping("")
 	public String home(Model model) {
-		
-		
+				
 		model.addAttribute("inventarios", inventarioService.findAll());
 		
 		return "socio/home";

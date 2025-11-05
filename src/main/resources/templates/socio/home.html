@@ -24,10 +24,10 @@
 <body>
 
 	<!-- Navigation -->
-	<div th:include="administrador\template_admin.html::header" th:if="${sesion==null}">	
+	<div th:include="socio\template_socio.html::header" th:if="${sesion==null}">	
 	</div>
 	
-  <div th:include="administrador\template_admin.html::header"></div>
+  <div th:include="socio\template_socio.html::header"></div>
 
 	<!-- Page Content -->
 	<div class="container">
@@ -61,7 +61,7 @@
 	<!-- /.container -->
 
 	<!-- Footer -->
-	<div th:include="administrador\template_admin.html::footer">
+	<div th:include="socio\template_socio.html::footer">
 	</div>
 
 	<!-- Bootstrap core JavaScript -->

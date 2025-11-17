@@ -2,15 +2,20 @@ package com.example.spring_gym.controller;
 
 
 
+import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.spring_gym.model.Inventario;
 import com.example.spring_gym.services.InventarioService;
+
 
 @Controller
 @RequestMapping("/")
@@ -27,5 +32,16 @@ public class HomeController {
 		model.addAttribute("inventarios", inventarioService.findAll());
 		
 		return "socio/home";
+	}
+
+
+	@GetMapping("productohome/{id}")
+	public String inventarioHome(@PathVariable Integer id, Model model){
+		log.info("id producto enviado como parametro[]",id);
+		Inventario inventario = new Inventario();
+		Optional<Inventario> inventarioOptional= inventarioService.get(id);
+		inventario = inventarioOptional.get();
+		model.addAttribute("inventario",inventario);
+		return "socio/productohome";
 	}
 }

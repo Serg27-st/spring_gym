@@ -14,9 +14,11 @@ public class DetalleVenta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 private int idDetalle;
     private int idVenta;
+    private String nombre;
     private int idProducto;   // Relación con Inventario o Producto
     private int cantidad;
     private double precioUnitario;
+    private double total;
     
     @ManyToOne
     private Venta venta;
@@ -27,19 +29,22 @@ private int idDetalle;
 
     public DetalleVenta() {
     }
+
+    public DetalleVenta(int cantidad, int idDetalle, int idProducto, int idVenta, Inventario inventario, String nombre, double precioUnitario, double total, Venta venta) {
+        this.cantidad = cantidad;
+        this.idDetalle = idDetalle;
+        this.idProducto = idProducto;
+        this.idVenta = idVenta;
+        this.inventario = inventario;
+        this.nombre = nombre;
+        this.precioUnitario = precioUnitario;
+        this.total = total;
+        this.venta = venta;
+    }
     
     
 
-    public DetalleVenta(int idDetalle, int idVenta, int idProducto, int cantidad, double precioUnitario, Venta venta,
-            Inventario inventario) {
-        this.idDetalle = idDetalle;
-        this.idVenta = idVenta;
-        this.idProducto = idProducto;
-        this.cantidad = cantidad;
-        this.precioUnitario = precioUnitario;
-        this.venta = venta;
-        this.inventario = inventario;
-    }
+    
 
 
 
@@ -83,8 +88,9 @@ private int idDetalle;
 
     @Override
     public String toString() {
-        return "DetalleVenta [idDetalle=" + idDetalle + ", idVenta=" + idVenta + ", idProducto=" + idProducto
-                + ", cantidad=" + cantidad + ", precioUnitario=" + precioUnitario + "]";
+        return "DetalleVenta [idDetalle=" + idDetalle + ", idVenta=" + idVenta + ", nombre=" + nombre + ", idProducto="
+                + idProducto + ", cantidad=" + cantidad + ", precioUnitario=" + precioUnitario + ", total=" + total
+                + ", venta=" + venta + ", inventario=" + inventario + "]";
     }
 
     public Venta getVenta() {
@@ -101,6 +107,22 @@ private int idDetalle;
 
     public void setInventario(Inventario inventario) {
         this.inventario = inventario;
+    }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
 

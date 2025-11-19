@@ -115,5 +115,14 @@ public class HomeController {
 
 		return "socio/carrito";
 	}
+
+	@GetMapping("/getCart")
+	public String getCart(Model model) {
+		model.addAttribute("cart", detalles);
+		model.addAttribute("venta", venta);
+		
+		return "/socio/carrito";
+	}
+	
 	
 }

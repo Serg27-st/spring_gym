@@ -59,7 +59,7 @@
                   <td th:text="${dventa.precioUnitario}"></td>
                   <td th:text="${dventa.cantidad}"></td>
                   <td th:text="${dventa.total}"></td>
-                  <td ><a href="#" class="btn btn-danger">Quitar</a></td>
+                  <td ><a th:href="@{/delete/cart/{id} (id=${dventa.inventario.idInventario})}" class="btn btn-danger">Quitar</a></td>
                 </tr>
               </tbody>
 						</table>

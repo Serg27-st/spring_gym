@@ -63,6 +63,7 @@ public class HomeController {
 		DetalleVenta detalleVenta = new DetalleVenta();
 		Inventario inventario = new Inventario();
 		double sumatotal = 0;
+
 		Optional<Inventario> optionalInventario = inventarioService.get(id);
 		log.info("Producto añadido: {}", optionalInventario.get());
 		log.info("cantidad {}", cantidad);
@@ -74,7 +75,12 @@ public class HomeController {
 		detalleVenta.setTotal(inventario.getPrecio()*cantidad);
 		detalleVenta.setInventario(inventario);
 
-		detalles.add(detalleVenta);
+		Integer idInventario=inventario.getIdInventario();
+		boolean ingresado=detalles.stream().anyMatch(p -> p.getInventario().getIdInventario()==idInventario);
+		
+		if (!ingresado) {
+			detalles.add(detalleVenta);
+		}
 
 		sumatotal=detalles.stream().mapToDouble(dt->dt.getTotal()).sum();
 
@@ -83,6 +89,29 @@ public class HomeController {
 		model.addAttribute("venta", venta);
 
 
+
+		return "socio/carrito";
+	}
+
+
+	//quitar producto del carrito
+@GetMapping("/delete/cart/{id}")
+	public String deleteProductoCart(@PathVariable Integer id, Model model){
+
+		List<DetalleVenta> ventaNueva = new ArrayList<DetalleVenta>();
+
+		for (DetalleVenta detalleVenta : detalles) {
+			if (detalleVenta.getInventario().getIdInventario()!=id) {
+				ventaNueva.add(detalleVenta);
+				}
+		}
+		detalles=ventaNueva;
+		double sumatotal=0;
+		sumatotal=detalles.stream().mapToDouble(dt->dt.getTotal()).sum();
+
+		venta.setMontoTotal(sumatotal);
+		model.addAttribute("cart", detalles);
+		model.addAttribute("venta", venta);
 
 		return "socio/carrito";
 	}

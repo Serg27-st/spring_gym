@@ -15,7 +15,7 @@ public class DetalleVenta {
 private int idDetalle;
     private int idVenta;
     private String nombre;
-    private int idProducto;   // Relación con Inventario o Producto
+    private int idInventario;   // Relación con Inventario o Producto
     private int cantidad;
     private double precioUnitario;
     private double total;
@@ -33,7 +33,7 @@ private int idDetalle;
     public DetalleVenta(int cantidad, int idDetalle, int idProducto, int idVenta, Inventario inventario, String nombre, double precioUnitario, double total, Venta venta) {
         this.cantidad = cantidad;
         this.idDetalle = idDetalle;
-        this.idProducto = idProducto;
+        this.idInventario = idProducto;
         this.idVenta = idVenta;
         this.inventario = inventario;
         this.nombre = nombre;
@@ -60,11 +60,11 @@ private int idDetalle;
     public void setIdVenta(int idVenta) {
         this.idVenta = idVenta;
     }
-    public int getIdProducto() {
-        return idProducto;
+    public int getIdInventario() {
+        return idInventario;
     }
-    public void setIdProducto(int idProducto) {
-        this.idProducto = idProducto;
+    public void setIdInventario(int idProducto) {
+        this.idInventario = idProducto;
     }
     public int getCantidad() {
         return cantidad;
@@ -89,7 +89,7 @@ private int idDetalle;
     @Override
     public String toString() {
         return "DetalleVenta [idDetalle=" + idDetalle + ", idVenta=" + idVenta + ", nombre=" + nombre + ", idProducto="
-                + idProducto + ", cantidad=" + cantidad + ", precioUnitario=" + precioUnitario + ", total=" + total
+                + idInventario + ", cantidad=" + cantidad + ", precioUnitario=" + precioUnitario + ", total=" + total
                 + ", venta=" + venta + ", inventario=" + inventario + "]";
     }
 

@@ -3,6 +3,7 @@ package com.example.spring_gym.controller;
 
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,8 +22,12 @@ import com.example.spring_gym.model.DetalleVenta;
 import com.example.spring_gym.model.Inventario;
 import com.example.spring_gym.model.Socio;
 import com.example.spring_gym.model.Venta;
+import com.example.spring_gym.services.DetalleVentaService;
 import com.example.spring_gym.services.InventarioService;
 import com.example.spring_gym.services.SocioService;
+import com.example.spring_gym.services.VentaService;
+
+import jakarta.servlet.http.HttpSession;
 
 
 
@@ -39,7 +44,17 @@ public class HomeController {
 	@Autowired
 	private SocioService socioService;
 
+	
+	
+	@Autowired
+	private VentaService ventaService;
+	
+	@Autowired
+	private DetalleVentaService detalleVentaService;
+
+
 	List<DetalleVenta> detalles = new ArrayList<DetalleVenta>();
+	
 	Venta venta= new Venta();
 
 
@@ -137,6 +152,31 @@ public class HomeController {
 		model.addAttribute("venta", venta);
 		model.addAttribute("socio",socio);
 		return "socio/resumenventa";
+	}
+
+	@GetMapping("/saveVenta")
+	public String saveVenta(HttpSession session ) {
+		Date fechaCreacion = new Date();
+		venta.setFechaCreacion(fechaCreacion);
+		venta.setNumero(ventaService.generarNumeroVenta());
+		
+		//socio
+		Socio socio =socioService.findById( Integer.parseInt(session.getAttribute("idSocio").toString())  ).get();
+		
+		venta.setSocio(socio);
+		ventaService.save(venta);
+		
+		//guardar detalles
+		for (DetalleVenta dt:detalles) {
+			dt.setVenta(venta);
+			detalleVentaService.save(dt);
+		}
+		
+		///limpiar lista y orden
+		venta = new Venta();
+		detalles.clear();
+		
+		return "redirect:/";
 	}
 	
 	

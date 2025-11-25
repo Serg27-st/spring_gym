@@ -1,5 +1,7 @@
 package com.example.spring_gym.services;
 
-public interface DetalleVenta {
+import com.example.spring_gym.model.DetalleVenta;
 
+public interface DetalleVentaService {
+    DetalleVenta save (DetalleVenta detalleVenta);
 }

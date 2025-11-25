@@ -1,5 +1,9 @@
 package com.example.spring_gym.repository;
 
-public interface DetalleVentaRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.example.spring_gym.model.DetalleVenta;
+
+public interface DetalleVentaRepository extends JpaRepository<DetalleVenta, Integer> {
 
 }

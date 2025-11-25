@@ -1,7 +1,7 @@
 package com.example.spring_gym.model;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import jakarta.persistence.Entity;
@@ -20,7 +20,9 @@ public class Venta {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer idVenta;
     private int idSocio;             // Relación con Socio (quién compra)
-    private LocalDateTime fechaVenta;
+    private String numero;
+    private Date fechaCreacion;
+	private Date fechaRecibida;
     private double montoTotal;
  @OneToOne
     private Pago pago;
@@ -37,31 +39,22 @@ public class Venta {
         this.detalles = new ArrayList<>();
     }
 
-
-
-    public Venta(Integer idVenta, int idSocio, LocalDateTime fechaVenta, double montoTotal, Pago pago, Socio socio,
-            List<DetalleVenta> detalles) {
-        this.idVenta = idVenta;
+    public Venta(List<DetalleVenta> detalles, Date fechaCreacion, Date fechaRecibida, int idSocio, Integer idVenta, double montoTotal, String numero, Pago pago, Socio socio) {
+        this.detalles = detalles;
+        this.fechaCreacion = fechaCreacion;
+        this.fechaRecibida = fechaRecibida;
         this.idSocio = idSocio;
-        this.fechaVenta = fechaVenta;
+        this.idVenta = idVenta;
         this.montoTotal = montoTotal;
+        this.numero = numero;
         this.pago = pago;
         this.socio = socio;
-        this.detalles = detalles;
     }
-
-
-
-
-
-
-
-    // Getters y Setters
-    public int getIdVenta() {
+ public Integer getIdVenta() {
         return idVenta;
     }
 
-    public void setIdVenta(int idVenta) {
+    public void setIdVenta(Integer idVenta) {
         this.idVenta = idVenta;
     }
 
@@ -73,23 +66,36 @@ public class Venta {
         this.idSocio = idSocio;
     }
 
-    public LocalDateTime getFechaVenta() {
-        return fechaVenta;
+    public String getNumero() {
+        return numero;
     }
 
-    public void setFechaVenta(LocalDateTime fechaVenta) {
-        this.fechaVenta = fechaVenta;
+    public void setNumero(String numero) {
+        this.numero = numero;
     }
 
-    public double getMontoTotal() {
+    public Date getFechaCreacion() {
+        return fechaCreacion;
+    }
+
+    public void setFechaCreacion(Date fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
+    }
+
+    public Date getFechaRecibida() {
+        return fechaRecibida;
+    }
+
+    public void setFechaRecibida(Date fechaRecibida) {
+        this.fechaRecibida = fechaRecibida;
+    }
+public double getMontoTotal() {
         return montoTotal;
     }
 
-    // Métodos para manejar los detalles
-    public List<DetalleVenta> getDetalles() {
-        return detalles;
+    public void setMontoTotal(double montoTotal) {
+        this.montoTotal = montoTotal;
     }
-    
 
     public Pago getPago() {
         return pago;
@@ -97,11 +103,6 @@ public class Venta {
 
     public void setPago(Pago pago) {
         this.pago = pago;
-    }
-    
-
-    public void setMontoTotal(double montoTotal) {
-        this.montoTotal = montoTotal;
     }
 
     public Socio getSocio() {
@@ -112,46 +113,26 @@ public class Venta {
         this.socio = socio;
     }
 
+    public List<DetalleVenta> getDetalles() {
+        return detalles;
+    }
+
     public void setDetalles(List<DetalleVenta> detalles) {
         this.detalles = detalles;
     }
 
-    public void agregarDetalle(DetalleVenta detalle) {
-        if (detalle != null) {
-            this.detalles.add(detalle);
-            calcularMontoTotal();
-        }
-    }
-
-    public void eliminarDetalle(DetalleVenta detalle) {
-        if (detalle != null && this.detalles.remove(detalle)) {
-            calcularMontoTotal();
-        }
-    }
-
-    // Recalcular monto total en base a los detalles
-    private void calcularMontoTotal() {
-        this.montoTotal = this.detalles.stream()
-                .mapToDouble(DetalleVenta::getSubtotal)
-                .sum();
-    }
-
-     public void generarPago(String metodoPago) {
-        this.pago = new Pago();
-        pago.setIdSocio(this.idSocio);
-        pago.setIdMembresia(0); // 0 porque no está asociado a membresía
-        pago.setMonto(this.montoTotal);
-        pago.setFechaPago(this.fechaVenta.toLocalDate());
-        pago.setMetodoPago(metodoPago);
-        pago.setEstado("Pagado");
-        }
-
     @Override
     public String toString() {
-        return "Venta [idVenta=" + idVenta + ", idSocio=" + idSocio + ", fechaVenta=" + fechaVenta + ", montoTotal="
-                + montoTotal + ", detalles=" + detalles + "]";
+        return "Venta [idVenta=" + idVenta + ", idSocio=" + idSocio + ", numero=" + numero + ", fechaCreacion="
+                + fechaCreacion + ", fechaRecibida=" + fechaRecibida + ", montoTotal=" + montoTotal + ", pago=" + pago
+                + ", socio=" + socio + ", detalles=" + detalles + "]";
     }
 
+
+
+
+    
+   
 
     
 }

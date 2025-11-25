@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.spring_gym.model.DetalleVenta;
 import com.example.spring_gym.model.Inventario;
+import com.example.spring_gym.model.Socio;
 import com.example.spring_gym.model.Venta;
 import com.example.spring_gym.services.InventarioService;
+import com.example.spring_gym.services.SocioService;
 
 
 
@@ -32,11 +34,13 @@ public class HomeController {
 
 	@Autowired
 	private InventarioService inventarioService;
+	
+	
+	@Autowired
+	private SocioService socioService;
 
 	List<DetalleVenta> detalles = new ArrayList<DetalleVenta>();
-
-	Venta venta = new Venta();
-
+	Venta venta= new Venta();
 
 
 	@GetMapping("")
@@ -125,7 +129,13 @@ public class HomeController {
 	}
 	
 	@GetMapping("/venta")
-	public String venta() {
+	public String venta(Model model) {
+
+		Socio socio= socioService.findById(1).get();
+		
+		model.addAttribute("cart", detalles);
+		model.addAttribute("venta", venta);
+		model.addAttribute("socio",socio);
 		return "socio/resumenventa";
 	}
 	

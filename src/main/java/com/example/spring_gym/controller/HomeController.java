@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,9 +24,9 @@ import com.example.spring_gym.model.Inventario;
 import com.example.spring_gym.model.Socio;
 import com.example.spring_gym.model.Venta;
 import com.example.spring_gym.services.DetalleVentaService;
-import com.example.spring_gym.services.InventarioService;
-import com.example.spring_gym.services.SocioService;
-import com.example.spring_gym.services.VentaService;
+import com.example.spring_gym.services.IInventarioService;
+import com.example.spring_gym.services.ISocioService;
+import com.example.spring_gym.services.IVentaService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -38,16 +39,16 @@ public class HomeController {
 	private final Logger log = LoggerFactory.getLogger(HomeController.class);
 
 	@Autowired
-	private InventarioService inventarioService;
+	private IInventarioService inventarioService;
 	
 	
 	@Autowired
-	private SocioService socioService;
+	private ISocioService socioService;
 
 	
 	
 	@Autowired
-	private VentaService ventaService;
+	private IVentaService ventaService;
 	
 	@Autowired
 	private DetalleVentaService detalleVentaService;
@@ -161,7 +162,7 @@ public class HomeController {
 		venta.setNumero(ventaService.generarNumeroVenta());
 		
 		//socio
-		Socio socio =socioService.findById( Integer.parseInt(session.getAttribute("idSocio").toString())  ).get();
+		Socio socio = socioService.findById(1).get();
 		
 		venta.setSocio(socio);
 		ventaService.save(venta);
@@ -178,6 +179,16 @@ public class HomeController {
 		
 		return "redirect:/";
 	}
+
+	@PostMapping("/search")
+	public String searchProduct(@RequestParam String nombre, Model model) {
+		log.info("Nombre del producto: {}", nombre);
+		List<Inventario> inventarios= inventarioService.findAll().stream().filter( p -> p.getNombre().contains(nombre)).collect(Collectors.toList());
+		model.addAttribute("inventarios", inventarios);		
+		return "socio/home";
+	}
+
+
 	
 	
 }

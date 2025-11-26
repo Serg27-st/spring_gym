@@ -17,7 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.spring_gym.model.Inventario;
 import com.example.spring_gym.model.Socio;
-import com.example.spring_gym.services.InventarioService;
+import com.example.spring_gym.services.IInventarioService;
 import com.example.spring_gym.services.UploadFileService;
 
 
@@ -29,7 +29,7 @@ public class InventarioController {
 
      private final Logger LOGGER = LoggerFactory.getLogger(InventarioController.class);
      @Autowired
-     private InventarioService inventarioService; 
+     private IInventarioService inventarioService; 
 
      @Autowired
      private UploadFileService upload;

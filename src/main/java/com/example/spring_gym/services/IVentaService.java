@@ -6,7 +6,7 @@ import java.util.Optional;
 import com.example.spring_gym.model.Socio;
 import com.example.spring_gym.model.Venta;
 
-public interface VentaService {
+public interface IVentaService {
   List<Venta> findAll();
 	Optional<Venta> findById(Integer id);
 	Venta save (Venta venta);

@@ -10,7 +10,7 @@ import com.example.spring_gym.model.Inventario;
 import com.example.spring_gym.repository.InventarioRepository;
 
 @Service
-public class InventarioServiceImpl implements InventarioService{
+public class InventarioServiceImpl implements IInventarioService{
 @Autowired
 private InventarioRepository inventarioRepository;
 

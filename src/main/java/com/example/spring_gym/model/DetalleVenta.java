@@ -11,11 +11,9 @@ import jakarta.persistence.Table;
 
 public class DetalleVenta {
 @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+@GeneratedValue(strategy = GenerationType.IDENTITY)
 private int idDetalle;
-    private int idVenta;
     private String nombre;
-    private int idInventario;   // Relación con Inventario o Producto
     private int cantidad;
     private double precioUnitario;
     private double total;
@@ -30,41 +28,19 @@ private int idDetalle;
     public DetalleVenta() {
     }
 
-    public DetalleVenta(int cantidad, int idDetalle, int idProducto, int idVenta, Inventario inventario, String nombre, double precioUnitario, double total, Venta venta) {
+    public DetalleVenta(int cantidad, int idDetalle, String nombre, double precioUnitario, double total) {
         this.cantidad = cantidad;
         this.idDetalle = idDetalle;
-        this.idInventario = idProducto;
-        this.idVenta = idVenta;
-        this.inventario = inventario;
         this.nombre = nombre;
         this.precioUnitario = precioUnitario;
         this.total = total;
-        this.venta = venta;
     }
-    
-    
-
-    
-
-
 
     public int getIdDetalle() {
         return idDetalle;
     }
     public void setIdDetalle(int idDetalle) {
         this.idDetalle = idDetalle;
-    }
-    public int getIdVenta() {
-        return idVenta;
-    }
-    public void setIdVenta(int idVenta) {
-        this.idVenta = idVenta;
-    }
-    public int getIdInventario() {
-        return idInventario;
-    }
-    public void setIdInventario(int idProducto) {
-        this.idInventario = idProducto;
     }
     public int getCantidad() {
         return cantidad;
@@ -85,13 +61,6 @@ private int idDetalle;
     }
     
     
-
-    @Override
-    public String toString() {
-        return "DetalleVenta [idDetalle=" + idDetalle + ", idVenta=" + idVenta + ", nombre=" + nombre + ", idProducto="
-                + idInventario + ", cantidad=" + cantidad + ", precioUnitario=" + precioUnitario + ", total=" + total
-                + ", venta=" + venta + ", inventario=" + inventario + "]";
-    }
 
     public Venta getVenta() {
         return venta;
@@ -123,6 +92,21 @@ private int idDetalle;
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("DetalleVenta{");
+        sb.append("idDetalle=").append(idDetalle);
+        sb.append(", nombre=").append(nombre);
+        sb.append(", cantidad=").append(cantidad);
+        sb.append(", precioUnitario=").append(precioUnitario);
+        sb.append(", total=").append(total);
+        sb.append(", venta=").append(venta);
+        sb.append(", inventario=").append(inventario);
+        sb.append('}');
+        return sb.toString();
     }
 
 

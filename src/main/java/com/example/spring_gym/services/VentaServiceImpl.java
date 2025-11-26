@@ -11,7 +11,7 @@ import com.example.spring_gym.model.Socio;
 import com.example.spring_gym.model.Venta;
 import com.example.spring_gym.repository.VentaRepository;
 @Service
-public class VentaServiceImpl implements VentaService{
+public class VentaServiceImpl implements IVentaService{
     @Autowired
     private VentaRepository ventaRepository;    
     

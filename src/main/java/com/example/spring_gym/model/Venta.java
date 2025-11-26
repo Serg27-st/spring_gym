@@ -1,6 +1,5 @@
 package com.example.spring_gym.model;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -19,7 +18,6 @@ public class Venta {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer idVenta;
-    private int idSocio;             // Relación con Socio (quién compra)
     private String numero;
     private Date fechaCreacion;
 	private Date fechaRecibida;
@@ -32,38 +30,29 @@ public class Venta {
 	
 	@OneToMany(mappedBy = "venta")
     // Lista de productos vendidos (detalle)
-    private List<DetalleVenta> detalles;
+    private List<DetalleVenta> detalle;
 
     // Constructor vacío
     public Venta() {
-        this.detalles = new ArrayList<>();
     }
 
-    public Venta(List<DetalleVenta> detalles, Date fechaCreacion, Date fechaRecibida, int idSocio, Integer idVenta, double montoTotal, String numero, Pago pago, Socio socio) {
-        this.detalles = detalles;
+    public Venta(Date fechaCreacion, Date fechaRecibida, Integer idVenta, double montoTotal, String numero) {
         this.fechaCreacion = fechaCreacion;
         this.fechaRecibida = fechaRecibida;
-        this.idSocio = idSocio;
         this.idVenta = idVenta;
         this.montoTotal = montoTotal;
         this.numero = numero;
-        this.pago = pago;
-        this.socio = socio;
     }
+
+   
+
+
  public Integer getIdVenta() {
         return idVenta;
     }
 
     public void setIdVenta(Integer idVenta) {
         this.idVenta = idVenta;
-    }
-
-    public int getIdSocio() {
-        return idSocio;
-    }
-
-    public void setIdSocio(int idSocio) {
-        this.idSocio = idSocio;
     }
 
     public String getNumero() {
@@ -114,20 +103,30 @@ public double getMontoTotal() {
     }
 
     public List<DetalleVenta> getDetalles() {
-        return detalles;
+        return detalle;
     }
 
     public void setDetalles(List<DetalleVenta> detalles) {
-        this.detalles = detalles;
+        this.detalle = detalles;
     }
 
     @Override
     public String toString() {
-        return "Venta [idVenta=" + idVenta + ", idSocio=" + idSocio + ", numero=" + numero + ", fechaCreacion="
-                + fechaCreacion + ", fechaRecibida=" + fechaRecibida + ", montoTotal=" + montoTotal + ", pago=" + pago
-                + ", socio=" + socio + ", detalles=" + detalles + "]";
+        StringBuilder sb = new StringBuilder();
+        sb.append("Venta{");
+        sb.append("idVenta=").append(idVenta);
+        sb.append(", numero=").append(numero);
+        sb.append(", fechaCreacion=").append(fechaCreacion);
+        sb.append(", fechaRecibida=").append(fechaRecibida);
+        sb.append(", montoTotal=").append(montoTotal);
+        sb.append(", pago=").append(pago);
+        sb.append(", socio=").append(socio);
+        sb.append(", detalle=").append(detalle);
+        sb.append('}');
+        return sb.toString();
     }
 
+   
 
 
 

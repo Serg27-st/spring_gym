@@ -60,10 +60,10 @@ public class HomeController {
 
 
 	@GetMapping("")
-	public String home(Model model) {
-				
+	public String home(Model model, HttpSession session) {
+		log.info("Sesion del socio: {}", session.getAttribute("idsocio"));		
 		model.addAttribute("inventarios", inventarioService.findAll());
-		
+		model.addAttribute("sesion", session.getAttribute("idsocio"));
 		return "socio/home";
 	}
 
@@ -137,17 +137,18 @@ public class HomeController {
 	}
 
 	@GetMapping("/getCart")
-	public String getCart(Model model) {
+	public String getCart(Model model, HttpSession session) {
 		model.addAttribute("cart", detalles);
 		model.addAttribute("venta", venta);
 		
+		model.addAttribute("sesion", session.getAttribute("idsocio"));
 		return "/socio/carrito";
 	}
 	
 	@GetMapping("/venta")
-	public String venta(Model model) {
+	public String venta(Model model, HttpSession session) {
 
-		Socio socio= socioService.findById(1).get();
+		Socio socio= socioService.findById(Integer.parseInt(session.getAttribute("idsocio").toString())).get();
 		
 		model.addAttribute("cart", detalles);
 		model.addAttribute("venta", venta);
@@ -162,7 +163,7 @@ public class HomeController {
 		venta.setNumero(ventaService.generarNumeroVenta());
 		
 		//socio
-		Socio socio = socioService.findById(1).get();
+		Socio socio = socioService.findById(Integer.parseInt(session.getAttribute("idusuario").toString())).get();
 		
 		venta.setSocio(socio);
 		ventaService.save(venta);

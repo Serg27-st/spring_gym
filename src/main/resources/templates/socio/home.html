@@ -27,7 +27,7 @@
 	<div th:include="socio\template_socio.html::header" th:if="${sesion==null}">	
 	</div>
 	
-  <div th:include="socio\template_socio.html::header"></div>
+  <div th:include="socio\template_socio.html::header-user"th:unless="${sesion==null}"> </div>
 
 	<!-- Page Content -->
 	<div class="container">

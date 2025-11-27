@@ -22,7 +22,7 @@
 <body>
 
   <!-- Navigation -->
-<div th:include="administrador\template_admin.html::header"></div>
+<div th:include="administrador/template_admin.html::header"></div>
     <!-- Page Content -->
     <div class="container">
 
@@ -45,7 +45,7 @@ Con GymControl, podrás centralizar toda la información del gimnasio en una sol
               <p class="card-text" th:text="${inventario.nombre}"></p>
             </div>
             <div class="card-footer">
-              <a href="inventariohome.html" class="btn btn-success">Ver producto</a>
+              <button href="inventariohome.html" class="btn btn-success">Ver producto</button>
             </div>
           </div>
         </div>
@@ -57,7 +57,7 @@ Con GymControl, podrás centralizar toda la información del gimnasio en una sol
     <!-- /.container -->
 
     <!-- Footer -->
-   <div th:include="administrador\template_admin.html::footer"></div>
+   <div th:include="administrador/template_admin.html::footer"></div>
 
       <!-- /.container -->
     </footer>

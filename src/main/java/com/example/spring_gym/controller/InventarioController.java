@@ -18,7 +18,10 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.spring_gym.model.Inventario;
 import com.example.spring_gym.model.Socio;
 import com.example.spring_gym.services.IInventarioService;
+import com.example.spring_gym.services.ISocioService;
 import com.example.spring_gym.services.UploadFileService;
+
+import jakarta.servlet.http.HttpSession;
 
 
 
@@ -31,6 +34,8 @@ public class InventarioController {
      @Autowired
      private IInventarioService inventarioService; 
 
+     @Autowired
+     private ISocioService socioService;
      @Autowired
      private UploadFileService upload;
 
@@ -46,9 +51,9 @@ public class InventarioController {
     }
 
     @PostMapping("/save")
-    public String save(Inventario inventario, @RequestParam("img") MultipartFile file) throws IOException{
+    public String save(Inventario inventario, @RequestParam("img") MultipartFile file, HttpSession session) throws IOException{
      LOGGER.info("ESTE ES EL OBJETO INVENTARIO{}", inventario);
-     Socio s = new Socio(1, "", "", "", "", "", "", "");
+     Socio s = socioService.findById(Integer.parseInt(session.getAttribute("idsocio").toString())).get();
      inventario.setSocio(s);
      //imagen
      if (inventario.getIdInventario()==null){

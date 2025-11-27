@@ -163,7 +163,7 @@ public class HomeController {
 		venta.setNumero(ventaService.generarNumeroVenta());
 		
 		//socio
-		Socio socio = socioService.findById(Integer.parseInt(session.getAttribute("idusuario").toString())).get();
+		Socio socio = socioService.findById(Integer.parseInt(session.getAttribute("idsocio").toString())).get();
 		
 		venta.setSocio(socio);
 		ventaService.save(venta);

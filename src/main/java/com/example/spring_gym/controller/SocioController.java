@@ -56,12 +56,11 @@ public class SocioController {
 		return "socio/login";
 	}
 	
-	@PostMapping("/acceder")
+	@GetMapping("/acceder")
 	public String acceder(Socio socio, HttpSession session) {
 		logger.info("Accesos : {}", socio);
 		
-		Optional<Socio> user =socioService.findByEmail(socio.getEmail());
-		//logger.info("Usuario de db: {}", user.get());
+		Optional<Socio> user = socioService.findById(Integer.parseInt(session.getAttribute("idsocio").toString()));
 		
 		if (user.isPresent()) {
 			session.setAttribute("idsocio", user.get().getIdSocio());

@@ -146,15 +146,31 @@ public class HomeController {
 	}
 	
 	@GetMapping("/venta")
-	public String venta(Model model, HttpSession session) {
+public String venta(Model model, HttpSession session) {
 
-		Socio socio= socioService.findById(Integer.parseInt(session.getAttribute("idsocio").toString())).get();
-		
-		model.addAttribute("cart", detalles);
-		model.addAttribute("venta", venta);
-		model.addAttribute("socio",socio);
-		return "socio/resumenventa";
-	}
+    Object idObj = session.getAttribute("idsocio");
+
+    if (idObj == null) {
+        // No hay socio en sesión → rediriges al login o donde corresponda
+        return "redirect:socio/login";
+    }
+
+    int idSocio = Integer.parseInt(idObj.toString());
+
+    Socio socio = socioService.findById(idSocio)
+            .orElse(null);
+
+    if (socio == null) {
+        // Socio no encontrado → manejar caso
+        return "redirect:socio/login";
+    }
+
+    model.addAttribute("cart", detalles);
+    model.addAttribute("venta", venta);
+    model.addAttribute("socio", socio);
+
+    return "socio/resumenventa";
+}
 
 	@GetMapping("/saveVenta")
 	public String saveVenta(HttpSession session ) {

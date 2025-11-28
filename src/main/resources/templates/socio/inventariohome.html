@@ -9,7 +9,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Spring eCommerce</title>
+<title>GymControl</title>
 
 
 <!-- Bootstrap core CSS -->
@@ -40,40 +40,50 @@
 			<li class="breadcrumb-item active">Producto</li>
 		</ol>
 
-		<!-- Blog Post -->
-		<div class="card mb-4">
-			<div class="card-body">
-				<div class="row">
-					<div class="col-lg-6">
-						<a href="#"> <img class="img-fluid rounded"
-							th:src="@{/images/{img} (img=${inventario.imagen})  }" alt="">
-						</a>
-					</div>
-					<div class="col-lg-6">
-						<form th:action="@{/cart}" method="POST">
-						<input type="hidden" th:value="${inventario.idInventario}" name="id">
-							<h2 class="card-title" th:text="${inventario.nombre}"></h2>
+		<!-- Producto -->
+<div class="card mb-4 shadow-sm border-0 rounded-3">
+  <div class="row g-0 align-items-center">
+    
+    <!-- Imagen del producto -->
+    <div class="col-lg-6 p-3">
+      <a href="#">
+        <img class="img-fluid rounded shadow-sm"
+             th:src="@{/images/{img}(img=${inventario.imagen})}" 
+             alt="Imagen del producto">
+      </a>
+    </div>
 
-							<ul class="list-group">
-								<li class="list-group-item"><h5 th:text=" 'Precio: '+ ${inventario.precio} "></h5></li>
-								<li class="list-group-item">
-									<p th:text=" 'Descripción: '+ ${inventario.descripcion} "></p>
-								</li>
-								<li class="list-group-item"><h6>
-										Cantidad: <input type="number" id="cantidad" name="cantidad"
-											autocomplete="off" min="1" max="5" value="1">
-									</h6></li>
-							</ul>
+    <!-- Información y formulario -->
+    <div class="col-lg-6 p-4">
+      <form th:action="@{/cart}" method="POST" class="d-flex flex-column h-100">
+        <input type="hidden" th:value="${inventario.idInventario}" name="id">
 
+        <h2 class="card-title mb-3 fw-bold" th:text="${inventario.nombre}"></h2>
 
-							<button type="submit" class="btn btn-dark">Añadir al
-								carrito</button>
+        <ul class="list-group mb-3 shadow-sm rounded">
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <span class="fw-semibold">Precio:</span>
+            <span th:text="${inventario.precio} + ' USD'"></span>
+          </li>
+          <li class="list-group-item">
+            <p class="mb-0" th:text="${inventario.descripcion}"></p>
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <label for="cantidad" class="mb-0 fw-semibold">Cantidad:</label>
+            <input type="number" id="cantidad" name="cantidad" class="form-control form-control-sm w-25"
+                   autocomplete="off" min="1" max="5" value="1">
+          </li>
+        </ul>
 
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
+        <button type="submit" class="btn btn-dark btn-lg mt-auto">
+          <i class="bi bi-cart-plus"></i> Añadir al carrito
+        </button>
+      </form>
+    </div>
+
+  </div>
+</div>
+
 
 
 	</div>

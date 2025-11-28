@@ -3,6 +3,308 @@
  * Copyright 2013-2020 Start Bootstrap
  * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-heroic-features/blob/master/LICENSE)
  */
+/* =========================
+   Body y Fondo
+========================= */
 body {
-  padding-top: 56px;
+    background-color: #0041a1; /* Color base */
+    background: linear-gradient(120deg, #112b52, #0f5a7a);
+    padding-top: 70px; /* Para navbar fixed-top */
+}
+
+/* =========================
+   Cards (productos en grid)
+========================= */
+.row.text-center {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.row.text-center .card {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.row.text-center .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+}
+
+.row.text-center .card-img-top {
+    height: 200px;
+    object-fit: cover;
+    transition: transform 0.3s;
+}
+
+.row.text-center .card:hover .card-img-top {
+    transform: scale(1.05);
+}
+
+.row.text-center .card-body {
+    padding: 1rem;
+}
+
+.row.text-center .card-text {
+    font-weight: 600;
+    font-size: 1rem;
+    color: #212529;
+    margin: 0;
+}
+
+.row.text-center .card-footer {
+    background-color: #ffffff;
+    border-top: none;
+    padding: 0.75rem;
+    text-align: center;
+}
+
+.row.text-center .card-footer .btn {
+    width: 100%;
+    font-weight: 600;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.row.text-center .card-footer .btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+/* =========================
+   Formulario de edición
+========================= */
+h2 {
+    font-weight: 700;
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: #212529;
+}
+
+.d-flex.flex-wrap.gap-4 {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+}
+
+/* Formulario */
+.d-flex .flex-fill form {
+    background-color: #ffffff;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.d-flex .flex-fill form:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.d-flex .flex-fill .form-label {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #495057;
+}
+
+.d-flex .flex-fill .btn-success {
+    margin-top: 1rem;
+    width: 100%;
+    font-weight: 600;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.d-flex .flex-fill .btn-success:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+/* Imagen del producto dentro del flex */
+.d-flex .flex-fill .card {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.d-flex .flex-fill .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.d-flex .flex-fill .card-img-top {
+    height: 250px;
+    object-fit: cover;
+    transition: transform 0.3s;
+}
+
+.d-flex .flex-fill .card:hover .card-img-top {
+    transform: scale(1.05);
+}
+
+.d-flex .flex-fill .card-body {
+    padding: 1rem;
+}
+
+.d-flex .flex-fill .card-text {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #212529;
+}
+
+/* =========================
+   Tabla de productos
+========================= */
+h1 {
+    font-weight: 700;
+    color: #212529;
+}
+
+h1 small {
+    font-weight: 400;
+    color: #6c757d;
+}
+
+.breadcrumb {
+    background-color: #f8f9fa;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1.5rem;
+    z-index: 1;
+    height: 50px;
+}
+
+.btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.btn-primary:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.table-responsive {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    background-color: #ffffff;
+    padding: 1rem;
+}
+
+.table {
+    background-color: #ffffff;
+}
+
+.table thead {
+    background-color: #0d6efd;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.table th, .table td {
+    vertical-align: middle;
+    text-align: center;
+    padding: 0.75rem;
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(13, 110, 253, 0.1);
+    transition: background-color 0.3s;
+}
+
+.btn-warning, .btn-danger {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-weight: 500;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.btn-warning:hover,
+.btn-danger:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+/* =========================
+   Footer
+========================= */
+footer {
+    background-color: #212529; 
+    padding: 2rem 0;          
+    color: #ffffff;            
+    text-align: center;       
+    font-size: 0.9rem;         
+    position: relative;      
+    z-index: 1;
+}
+
+footer p {
+    margin: 0;                
+    color: #ffffff;
+}
+
+footer a {
+    color: #ffffff;           
+    text-decoration: underline;
+    transition: color 0.3s;
+}
+
+footer a:hover {
+    color: #0d6efd;           
+    text-decoration: none;
+}
+
+.final {
+    color: #0041a1;
+}
+/* Responsive */
+@media (max-width: 768px) {
+    footer {
+        font-size: 0.85rem;
+        padding: 1.5rem 0;
+    }
+}
+
+f
+
+/* =========================
+   Responsivo
+========================= */
+@media (max-width: 992px) {
+    .d-flex.flex-wrap.gap-4 {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .d-flex .flex-fill {
+        max-width: 100% !important;
+        margin-left: 0 !important;
+    }
+
+    .d-flex .flex-fill .card-img-top {
+        height: 200px;
+    }
+}
+
+@media (max-width: 768px) {
+    .row.text-center .card-img-top {
+        height: 150px;
+    }
+
+    .table th, .table td {
+        font-size: 0.9rem;
+        padding: 0.5rem;
+    }
+
+    .btn-warning, .btn-danger {
+        font-size: 0.85rem;
+        padding: 0.35rem 0.5rem;
+    }
 }

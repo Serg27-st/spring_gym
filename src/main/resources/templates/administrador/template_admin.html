@@ -38,13 +38,46 @@
 </div>
     
 
-    <!-- Footer -->
-     <div th:fragment="footer">
-    <footer class="py-5 bg-dark">
-      <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; gymControl 2025</p>
-      </div>
-      <!-- /.container -->
+	<div th:fragment="footer">
+    <footer class="py-5 bg-dark text-white">
+        <div class="container-fluid text-center">
+            <!-- Información principal -->
+            <div class="row text-center text-md-start mb-3">
+                <!-- Contacto -->
+                <div class="col-md-4 mb-3">
+                    <h5>Contacto</h5>
+                    <p>Teléfono: +51 987 654 321</p>
+                    <p>Email: contacto@springgym.com</p>
+                </div>
+
+                <!-- Delivery -->
+                <div class="col-md-4 mb-3">
+                    <h5>Delivery</h5>
+                    <p>Envíos a todo Lima Metropolitana</p>
+                    <p>Servicio rápido y seguro</p>
+                </div>
+
+                <!-- Horario de atención -->
+                <div class="col-md-4 mb-3">
+                    <h5>Horario de Atención</h5>
+                    <p>Lunes a Viernes: 08:00 - 20:00</p>
+                    <p>Sábado: 09:00 - 17:00</p>
+                    <p>Domingo: Cerrado</p>
+                </div>
+            </div>
+
+            <!-- Derechos de autor -->
+            <div class="text-center mt-3">
+                <p class="m-0">&copy; 2025 SpringGym. Todos los derechos reservados.</p>
+            </div>
+        </div>
     </footer>
 </div>
-   
+	<!-- Bootstrap core JavaScript -->
+	<script th:src="@{vendor/jquery/jquery.min.js}"></script>
+	<script th:src="@{vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+</body>
+
+
+</html>

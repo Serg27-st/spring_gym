@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Spring eCommerce</title>
+  <title>GymControl</title>
 
 
   <!-- Bootstrap core CSS -->
@@ -40,45 +40,45 @@
       </div>    
     </div>
   </nav>
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
 
-
-  <!-- Page Content -->
-  <div class="container">
-
-    <div class="card mb-3">
-      <div class="row no-gutters">
-        <div class="col-md-4">
-        </div>
-        <div class="col-md-8">
-          <div class="card-body">
-            <h2>Ingresar</h2>
-
-          </div>
-        </div>
-      </div>
+  <div class="card shadow-lg rounded-4 p-4" style="max-width: 450px; width: 100%;">
+    
+    <!-- Card Header -->
+    <div class="card-body text-center mb-4">
+      <h2 class="card-title fw-bold">Ingresar</h2>
+      <p class="text-muted">Ingrese sus credenciales para continuar</p>
     </div>
 
-    
-    <form  th:action="@{/socio/login}" method="post">
-      <div class="form-group">
-        <label for="email"> Email:  </label>      
-        <input type="email" class="form-control" id="username" name="username" placeholder="Ingrese su email" required autocomplete="off"> 
-
+    <!-- Login Form -->
+    <form th:action="@{/socio/login}" method="post">
+      
+      <div class="mb-3">
+        <label for="username" class="form-label">Email:</label>
+        <input type="email" class="form-control" id="username" name="username" placeholder="Ingrese su email" required autocomplete="off">
       </div>
 
-      <div class="form-group">
-        <label for="pwd"> Contraseña:</label>
-        <input type="password"  class="form-control" id="password" name="password" placeholder="Ingrese su contraseña" required>       
+      <div class="mb-3">
+        <label for="password" class="form-label">Contraseña:</label>
+        <input type="password" class="form-control" id="password" name="password" placeholder="Ingrese su contraseña" required>
       </div>
 
-      <div class="form-group">
-        <div class="col-sm-2">
-          <button type="submit" class="btn btn-dark"> <span class="glyphicon glyphicon-ok"></span> Ingresar</button>
-        </div>      
-      </div>    
+      <div class="d-grid mb-3">
+        <button type="submit" class="btn btn-dark btn-lg">
+          <i class="bi bi-box-arrow-in-right"></i> Ingresar
+        </button>
+      </div>
+
     </form>
-    <a th:href="@{/socio/registro}" class="card-link">Si aún no tiene cuenta aqui puede registrarse</a>
+
+    <!-- Registro -->
+    <p class="text-center mt-2">
+      <a th:href="@{/socio/registro}" class="text-decoration-none">¿No tienes cuenta? Regístrate aquí</a>
+    </p>
+
   </div>
+
+</div>
   <!-- /.container -->
 
   <!-- Footer -->

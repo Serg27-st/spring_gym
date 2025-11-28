@@ -9,7 +9,6 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.spring_gym.model.Socio;
@@ -23,9 +22,6 @@ public class UserDetailServiceImpl implements UserDetailsService{
 	private ISocioService socioService;
 	
 	@Autowired
-	private BCryptPasswordEncoder bCrypt;
-	
-	@Autowired
 	HttpSession session;
 	
 	private Logger log = LoggerFactory.getLogger(UserDetailServiceImpl.class);
@@ -37,10 +33,17 @@ public class UserDetailServiceImpl implements UserDetailsService{
 		if (optionalUser.isPresent()) {
 			log.info("Esto es el id del usuario: {}", optionalUser.get().getIdSocio());
 			session.setAttribute("idsocio", optionalUser.get().getIdSocio());
-			Socio socio= optionalUser.get();
-			return User.builder().username(socio.getNombre()).password(bCrypt.encode(socio.getPassword())).roles(socio.getTipo()).build();
-		}else {
-			throw new UsernameNotFoundException("Usuario no encontrado");			
+			
+			Socio socio = optionalUser.get();
+			
+			// La contraseña NO se encripta aquí. Ya debe estar encriptada en la BD.
+			return User.builder()
+					.username(socio.getNombre())
+					.password(socio.getPassword())  
+					.roles(socio.getTipo())
+					.build();
+		} else {
+			throw new UsernameNotFoundException("Usuario no encontrado");
 		}
 	}
 

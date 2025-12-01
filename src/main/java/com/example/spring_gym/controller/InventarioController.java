@@ -17,7 +17,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.spring_gym.model.Inventario;
 import com.example.spring_gym.model.Socio;
-import com.example.spring_gym.model.Venta;
 import com.example.spring_gym.services.IInventarioService;
 import com.example.spring_gym.services.ISocioService;
 import com.example.spring_gym.services.IVentaService;

@@ -62,21 +62,21 @@ public class AdministradorController {
 
 		return "administrador/ventas";
 	}
-    @GetMapping("/ventas/cambiarEstado/{id}")
-    public String cambiarEstado(@PathVariable Integer id) {
-        
-        Venta venta = ventaService.findById(id).orElse(null);
+@GetMapping("/ventas/cambiarEstado/{id}")
+public String cambiarEstado(@PathVariable Integer id) {
+    
+    Venta venta = ventaService.findById(id).orElse(null);
 
-        if (venta != null) {
-            venta.setEstado(
-                venta.getEstado().equals("PENDIENTE") ? "COMPLETA" : "PENDIENTE"
-            );
-            ventaService.save(venta);
-        }
-
-        return "redirect:/administrador/ventas";
+    if (venta != null) {
+        // Evita NullPointerException
+        venta.setEstado(
+            "PENDIENTE".equals(venta.getEstado()) ? "COMPLETA" : "PENDIENTE"
+        );
+        ventaService.save(venta);
     }
 
+    return "redirect:/administrador/ventas";
+}
 
 	
 	@GetMapping("/detalle/{id}")
@@ -95,13 +95,15 @@ public class AdministradorController {
 // BUSCAR PRODUCTOS EN HOME
 @PostMapping("/searchProductos")
 public String searchProductos(@RequestParam String nombre, Model model) {
+    // Normalizar término de búsqueda
+    String busqueda = (nombre == null) ? "" : nombre.trim().toLowerCase();
 
     List<Inventario> inventarios = inventarioService.findAll().stream()
-            .filter(p -> p.getNombre().toLowerCase().contains(nombre.toLowerCase()))
+            .filter(p -> p.getNombre() != null && p.getNombre().trim().toLowerCase().contains(busqueda))
             .collect(Collectors.toList());
 
     model.addAttribute("inventarios", inventarios);
-	model.addAttribute("page", "home");
+    model.addAttribute("page", "home");
     return "administrador/home";
 }
 
@@ -109,29 +111,35 @@ public String searchProductos(@RequestParam String nombre, Model model) {
 // BUSCAR SOCIOS EN socios.html
 @PostMapping("/searchSocios")
 public String searchSocios(@RequestParam String nombre, Model model) {
+    // Validar y normalizar el término de búsqueda
+    String busqueda = (nombre == null) ? "" : nombre.trim().toLowerCase();
 
     List<Socio> socios = socioService.findAll().stream()
-            .filter(s -> s.getNombre().toLowerCase().contains(nombre.toLowerCase()))
+            .filter(s -> s.getNombre() != null && s.getNombre().toLowerCase().contains(busqueda))
             .collect(Collectors.toList());
 
     model.addAttribute("socios", socios);
-	model.addAttribute("page", "socios");
+    model.addAttribute("page", "socios");
     return "administrador/socios";
 }
+
 
 
 // BUSCAR VENTAS POR NUMERO EN ventas.html
 @PostMapping("/searchVentas")
 public String searchVentas(@RequestParam String numero, Model model) {
+    // Normalizar el número de búsqueda
+    String busqueda = (numero == null) ? "" : numero.trim().toLowerCase();
 
     List<Venta> ventas = ventaService.findAll().stream()
-            .filter(v -> v.getNumero().equals(numero))
+            .filter(v -> v.getNumero() != null && v.getNumero().trim().toLowerCase().contains(busqueda))
             .collect(Collectors.toList());
 
     model.addAttribute("ventas", ventas);
-	model.addAttribute("page", "ventas");
+    model.addAttribute("page", "ventas");
     return "administrador/ventas";
 }
+
 
 
 }

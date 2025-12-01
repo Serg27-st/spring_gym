@@ -9,7 +9,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -23,8 +22,7 @@ public class Venta {
 	private Date fechaRecibida;
     private double montoTotal;
     private String estado;
- @OneToOne
-    private Pago pago;
+
 
     	@ManyToOne
 	private Socio socio;
@@ -87,13 +85,6 @@ public double getMontoTotal() {
         this.montoTotal = montoTotal;
     }
 
-    public Pago getPago() {
-        return pago;
-    }
-
-    public void setPago(Pago pago) {
-        this.pago = pago;
-    }
 
     public Socio getSocio() {
         return socio;
@@ -120,7 +111,6 @@ public double getMontoTotal() {
         sb.append(", fechaCreacion=").append(fechaCreacion);
         sb.append(", fechaRecibida=").append(fechaRecibida);
         sb.append(", montoTotal=").append(montoTotal);
-        sb.append(", pago=").append(pago);
         sb.append(", socio=").append(socio);
         sb.append(", detalle=").append(detalle);
         sb.append('}');

@@ -64,6 +64,7 @@ public class HomeController {
 		log.info("Sesion del socio: {}", session.getAttribute("idsocio"));		
 		model.addAttribute("inventarios", inventarioService.findAll());
 		model.addAttribute("sesion", session.getAttribute("idsocio"));
+		model.addAttribute("page", "home");
 		return "socio/home";
 	}
 
@@ -80,7 +81,7 @@ public class HomeController {
 	}
 
 	@PostMapping("/cart")
-	public String addCart(@RequestParam Integer id, @RequestParam Integer cantidad, Model model) {
+	public String addCart(@RequestParam Integer id, @RequestParam Integer cantidad, Model model, HttpSession session) {
 		DetalleVenta detalleVenta = new DetalleVenta();
 		Inventario inventario = new Inventario();
 		double sumatotal = 0;
@@ -108,7 +109,7 @@ public class HomeController {
 		venta.setMontoTotal(sumatotal);
 		model.addAttribute("cart", detalles);
 		model.addAttribute("venta", venta);
-
+		model.addAttribute("sesion", session.getAttribute("idsocio"));
 
 
 		return "socio/carrito";
@@ -133,7 +134,7 @@ public class HomeController {
 		venta.setMontoTotal(sumatotal);
 		model.addAttribute("cart", detalles);
 		model.addAttribute("venta", venta);
-
+		
 		return "socio/carrito";
 	}
 
@@ -198,13 +199,39 @@ public String venta(Model model, HttpSession session) {
 		
 		return "redirect:/";
 	}
+		@PostMapping("/searchProductos")
+public String searchProductos(@RequestParam String nombre, Model model, HttpSession session ) {
+    // Normalizar término de búsqueda
+    String busqueda = (nombre == null) ? "" : nombre.trim().toLowerCase();
 
+    List<Inventario> inventarios = inventarioService.findAll().stream()
+            .filter(p -> p.getNombre() != null && p.getNombre().trim().toLowerCase().contains(busqueda))
+            .collect(Collectors.toList());
+	model.addAttribute("sesion", session.getAttribute("idsocio"));
+    model.addAttribute("inventarios", inventarios);
+    model.addAttribute("page", "home");
+    return "socio/home";
+}
+		@PostMapping("/searchVentas")
+	public String searchVentas(@RequestParam String numero, Model model, HttpSession session ) {
+    // Normalizar el número de búsqueda
+    String busqueda = (numero == null) ? "" : numero.trim().toLowerCase();
+
+    List<Venta> ventas = ventaService.findAll().stream()
+            .filter(v -> v.getNumero() != null && v.getNumero().trim().toLowerCase().contains(busqueda))
+            .collect(Collectors.toList());
+	model.addAttribute("sesion", session.getAttribute("idsocio"));		
+    model.addAttribute("ventas", ventas);
+    model.addAttribute("page", "compras");
+    return "socio/compras";
+}
 
 	@PostMapping("/search")
-	public String searchProduct(@RequestParam String nombre, Model model) {
+	public String searchProduct(@RequestParam String nombre, Model model, HttpSession session) {
 		log.info("Nombre del producto: {}", nombre);
 		List<Inventario> inventarios= inventarioService.findAll().stream().filter( p -> p.getNombre().contains(nombre)).collect(Collectors.toList());
-		model.addAttribute("inventarios", inventarios);		
+		model.addAttribute("inventarios", inventarios);
+		model.addAttribute("sesion", session.getAttribute("idsocio"));		
 		return "socio/home";
 	}
 

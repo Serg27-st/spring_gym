@@ -25,20 +25,9 @@ public class Socio {
     @OneToMany(mappedBy= "socio")
     private List<Inventario> inventarios;
 
-    @OneToMany(mappedBy="socio")
-    private List<Membresia> membresias;
-     
-    @OneToMany(mappedBy = "socio")
-    private List<Pago> pagos;
-
     @OneToMany(mappedBy = "socio")
     private List<Venta> ventas;
     
-    @OneToMany(mappedBy="socio")
-    private  List<Reserva> reservas;
-
-    @OneToMany(mappedBy="socio")
-    private  List<Asistencia> asistencias;
 
     
     public Socio() {
@@ -143,37 +132,6 @@ public class Socio {
         this.inventarios = inventarios;
     }
 
-    public List<Membresia> getMembresias() {
-        return membresias;
-    }
-
-    public void setMembresias(List<Membresia> membresias) {
-        this.membresias = membresias;
-    }
-
-    public List<Pago> getPagos() {
-        return pagos;
-    }
-
-    public void setPagos(List<Pago> pagos) {
-        this.pagos = pagos;
-    }
-
-    public List<Reserva> getReservas() {
-        return reservas;
-    }
-
-    public void setReservas(List<Reserva> reservas) {
-        this.reservas = reservas;
-    }
-
-    public List<Asistencia> getAsistencias() {
-        return asistencias;
-    }
-
-    public void setAsistencias(List<Asistencia> asistencias) {
-        this.asistencias = asistencias;
-    }
 
     public List<Venta> getVentas() {
         return ventas;

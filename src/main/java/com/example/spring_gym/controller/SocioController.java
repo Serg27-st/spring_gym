@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.spring_gym.model.Socio;
 import com.example.spring_gym.model.Venta;
+import com.example.spring_gym.services.IInventarioService;
 import com.example.spring_gym.services.ISocioService;
 import com.example.spring_gym.services.IVentaService;
 
@@ -32,6 +33,9 @@ public class SocioController {
 	
 	@Autowired
 	private IVentaService ventaService;
+
+	@Autowired 
+	private IInventarioService inventarioService;
 	
   BCryptPasswordEncoder passEncode = new BCryptPasswordEncoder();
 	
@@ -81,12 +85,12 @@ public class SocioController {
 	public String obtenerCompras(Model model, HttpSession session) {
 		model.addAttribute("sesion", session.getAttribute("idsocio"));
 		
-		Socio socio= socioService.findById(  Integer.parseInt(session.getAttribute("idsocio").toString()) ).get();
+		Socio socio= socioService.findById(Integer.parseInt(session.getAttribute("idsocio").toString()) ).get();
 		List<Venta> ventas= ventaService.findBySocio(socio);
 		logger.info("ventas {}", ventas);
-		
+		model.addAttribute("sesion", session.getAttribute("idsocio"));
 		model.addAttribute("ventas", ventas);
-		
+		model.addAttribute("page", "compras");
 		return "socio/compras";
 	}
 	
@@ -102,6 +106,8 @@ public class SocioController {
 		model.addAttribute("sesion", session.getAttribute("idsocio"));
 		return "socio/detallecompra";
 	}
+
+
 	
 	@GetMapping("/cerrar")
 	public String cerrarSesion( HttpSession session ) {

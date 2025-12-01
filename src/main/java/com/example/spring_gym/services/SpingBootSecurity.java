@@ -3,6 +3,7 @@ package com.example.spring_gym.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -29,23 +30,27 @@ public class SpingBootSecurity {
         return auth.build();
     }
 
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-            .csrf(csrf -> csrf.disable())
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/administrador/**").hasRole("ADMIN")
-                .requestMatchers("/inventarios/**").hasRole("ADMIN")
-                .anyRequest().permitAll()
-            )
-            .formLogin(login -> login
-                .loginPage("/socio/login")
-                .defaultSuccessUrl("/socio/acceder", true)
-                .permitAll()
-            );
+@Bean
+public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    http
+        .csrf(csrf -> csrf.disable())
+        .authorizeHttpRequests(auth -> auth
+            .requestMatchers("/administrador/**").hasRole("ADMIN")
+            .requestMatchers("/inventarios/**").hasRole("ADMIN")
+            // Permitir POST a los buscadores
+            .requestMatchers(HttpMethod.POST, "/searchProductos").permitAll()
+            .requestMatchers(HttpMethod.POST, "/searchVentas").permitAll()
+            .anyRequest().permitAll()
+        )
+        .formLogin(login -> login
+            .loginPage("/socio/login")
+            .defaultSuccessUrl("/socio/acceder", true)
+            .permitAll()
+        );
 
-        return http.build();
-    }
+    return http.build();
+}
+
 
     @Bean
     public BCryptPasswordEncoder getEnecoder() {

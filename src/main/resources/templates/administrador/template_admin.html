@@ -1,40 +1,102 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<title>SpringGym</title>
+
+
+<!-- Bootstrap core CSS -->
+<link th:href="@{vendor/bootstrap/css/bootstrap.min.css}"
+	rel="stylesheet">
+
+<!-- Custom styles for this template -->
+<link th:href="@{css/heroic-features.css}" rel="stylesheet">
+
+</head>
+
+<body>
   <!-- Navigation -->
-   <div th:fragment="header">
+  <div th:fragment="header">
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
+
       <a class="navbar-brand" th:href="@{/administrador}">Spring gymControl</a>
 
-      <form class="form-inline my-2 my-lg-0" method="post"
-      action="#">
-      <input class="form-control mr-sm-2" type="search"
-      placeholder="Buscar" aria-label="Search" name="nombre"
-      autocomplete="off">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
-    </form>
+      <!-- ========== BUSCADORES DINÁMICOS ========== -->
+      <div th:switch="${page}">
 
+        <!-- Buscador en HOME: Productos -->
+        <form th:case="'home'" class="form-inline my-2 my-lg-0"
+              th:action="@{/administrador/searchProductos}" method="post">
+          <input class="form-control mr-sm-2" type="search" placeholder="Buscar producto" name="nombre" autocomplete="off">
+          <button class="btn btn-outline-success" type="submit">Buscar</button>
+        </form>
 
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarResponsive">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item dropdown"><a
-							class="nav-link dropdown-toggle" href="#"
-							id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
-							aria-haspopup="true" aria-expanded="false"> ADMIN </a>
-							<div class="dropdown-menu"
-								aria-labelledby="navbarDropdownMenuLink">
-								<a class="dropdown-item" th:href="@{/inventarios}">Inventario</a>
-                <a class="dropdown-item" th:href="@{/administrador/socios}">Usuarios</a>
-                <a class="dropdown-item" th:href="@{/administrador/ventas}">Ordenes</a>
-                <a class="dropdown-item" th:href="@{/socio/cerrar}">Cerrar</a>  
-							</div></li>
+        <!-- Buscador en SOCIOS -->
+        <form th:case="'socios'" class="form-inline my-2 my-lg-0"
+              th:action="@{/administrador/searchSocios}" method="post">
+          <input class="form-control mr-sm-2" type="search" placeholder="Buscar socio" name="nombre" autocomplete="off">
+          <button class="btn btn-outline-success" type="submit">Buscar</button>
+        </form>
+
+        <!-- Buscador en VENTAS -->
+        <form th:case="'ventas'" class="form-inline my-2 my-lg-0"
+              th:action="@{/administrador/searchVentas}" method="post">
+          <input class="form-control mr-sm-2" type="search" placeholder="Buscar venta" name="numero" autocomplete="off">
+          <button class="btn btn-outline-success" type="submit">Buscar</button>
+        </form>
+
+        <!-- Buscador en LISTA:INVENTARIO -->
+        <form th:case="'show'" class="form-inline my-2 my-lg-0"
+              th:action="@{/administrador/searchLista}" method="post">
+          <input class="form-control mr-sm-2" type="search" placeholder="Buscar producto" name="nombre" autocomplete="off">
+          <button class="btn btn-outline-success" type="submit">Buscar</button>
+        </form>
         
-          </ul>
-        </div>
+
+        <!-- En 'detalle', NO mostramos buscador -->
+        <div th:case="'detalle'"></div>
+
       </div>
-    </nav>
+      <!-- ========== FIN SWITCH ========== -->
+
+      <!-- Botón hamburguesa -->
+      <button class="navbar-toggler" type="button" data-toggle="collapse"
+        data-target="#navbarResponsive" aria-controls="navbarResponsive"
+        aria-expanded="true" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Menú derecho -->
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+               role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              ADMIN
+            </a>
+
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" th:href="@{/inventarios}">Inventario</a>
+              <a class="dropdown-item" th:href="@{/administrador/socios}">Usuarios</a>
+              <a class="dropdown-item" th:href="@{/administrador/ventas}">Órdenes</a>
+              <a class="dropdown-item" th:href="@{/socio/cerrar}">Cerrar</a>
+            </div>
+          </li>
+
+        </ul>
+      </div>
+
+    </div>
+  </nav>
 </div>
     
 
@@ -53,7 +115,7 @@
                 <!-- Delivery -->
                 <div class="col-md-4 mb-3">
                     <h5>Delivery</h5>
-                    <p>Envíos a todo Lima Metropolitana</p>
+                    <p>Envíos locales</p>
                     <p>Servicio rápido y seguro</p>
                 </div>
 

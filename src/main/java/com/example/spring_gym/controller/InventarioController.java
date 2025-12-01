@@ -17,8 +17,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.spring_gym.model.Inventario;
 import com.example.spring_gym.model.Socio;
+import com.example.spring_gym.model.Venta;
 import com.example.spring_gym.services.IInventarioService;
 import com.example.spring_gym.services.ISocioService;
+import com.example.spring_gym.services.IVentaService;
 import com.example.spring_gym.services.UploadFileService;
 
 import jakarta.servlet.http.HttpSession;
@@ -36,6 +38,8 @@ public class InventarioController {
 
      @Autowired
      private ISocioService socioService;
+     @Autowired
+     private IVentaService ventaService;
      @Autowired
      private UploadFileService upload;
 
@@ -98,7 +102,6 @@ public class InventarioController {
           inventarioService.update(inventario);
      return "redirect:/inventarios";
     }
-
 
 
      @GetMapping("/delete/{id}")

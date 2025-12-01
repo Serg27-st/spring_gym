@@ -69,12 +69,13 @@ public class HomeController {
 
 
 	@GetMapping("inventariohome/{id}")
-	public String inventarioHome(@PathVariable Integer id, Model model){
+	public String inventarioHome(@PathVariable Integer id, Model model, HttpSession session){
 		log.info("id producto enviado como parametro[]",id);
 		Inventario inventario = new Inventario();
 		Optional<Inventario> inventarioOptional= inventarioService.get(id);
 		inventario = inventarioOptional.get();
 		model.addAttribute("inventario",inventario);
+		model.addAttribute("sesion", session.getAttribute("idsocio"));
 		return "socio/inventariohome";
 	}
 
@@ -168,7 +169,7 @@ public String venta(Model model, HttpSession session) {
     model.addAttribute("cart", detalles);
     model.addAttribute("venta", venta);
     model.addAttribute("socio", socio);
-
+	model.addAttribute("sesion", session.getAttribute("idsocio"));
     return "socio/resumenventa";
 }
 
@@ -182,6 +183,7 @@ public String venta(Model model, HttpSession session) {
 		Socio socio = socioService.findById(Integer.parseInt(session.getAttribute("idsocio").toString())).get();
 		
 		venta.setSocio(socio);
+		venta.setEstado("PENDIENTE");
 		ventaService.save(venta);
 		
 		//guardar detalles
@@ -196,6 +198,7 @@ public String venta(Model model, HttpSession session) {
 		
 		return "redirect:/";
 	}
+
 
 	@PostMapping("/search")
 	public String searchProduct(@RequestParam String nombre, Model model) {

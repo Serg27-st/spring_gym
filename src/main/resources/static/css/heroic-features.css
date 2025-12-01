@@ -7,7 +7,11 @@
    Body y Fondo
 ========================= */
 body {
-    background: linear-gradient(12deg, #012862, #3b77b4);
+    background-image: url("/images/FONDO.jpg");
+    background-color: #212529;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* opcional */
     padding-top: 70px; /* Para navbar fixed-top */
 }
 

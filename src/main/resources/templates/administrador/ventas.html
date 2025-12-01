@@ -52,6 +52,8 @@
 									<th scope="col">Fecha</th>
 									<th scope="col">Valor</th>
 									<th scope="col">Acción</th>
+									<th scope="col">Estado</th>
+
 								</tr>
 							</thead>
 							<tbody>
@@ -61,6 +63,7 @@
 									<td th:text="${venta.montoTotal}"></td>
 									<td><a th:href="@{/administrador/detalle/{id} (id=${venta.idVenta}) }" class="btn btn-success">Ver
 											Detalle</a></td>
+										<td> <a th:href="@{/administrador/ventas/cambiarEstado/{id}(id=${venta.idVenta})}" th:text="${venta.estado}" class="btn" th:classappend="${venta.estado == 'PENDIENTE'} ? ' btn-warning' : ' btn-success'"></a></td>
 								</tr>
 							</tbody>
 						</table>

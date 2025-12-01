@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 
 <head>
 
@@ -10,30 +10,28 @@
 
   <title>GymControl</title>
 
-         
+
   <!-- Bootstrap core CSS -->
-  <link th:href="@{vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+<link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}"
+	rel="stylesheet">
 
-  <!-- Custom styles for this template -->
- <link th:href="@{css/heroic-features.css}" rel="stylesheet">
-
+<!-- Custom styles for this template -->
+<link th:href="@{/css/heroic-features.css}" rel="stylesheet">
 
 </head>
 
 <body>
-
-  <!-- Navigation -->
+<!-- Navigation -->
 <div th:include="administrador/template_admin.html::header"></div>
-    <!-- Page Content -->
-    <div class="container">
+
+<!-- Page Content -->
+<div class="container">
 
       <!-- Jumbotron Header -->
       <header class="jumbotron my-4">
         <h1 class="display-3">Bienvenido a gymControl 2025</h1>
-        <p class="lead">GymControl es un sistema web diseñado para transformar la gestión administrativa y operativa de los gimnasios. Su objetivo es optimizar los procesos internos y ofrecer una experiencia más ágil, moderna y confiable tanto para los administradores como para los socios.
-
-Con GymControl, podrás centralizar toda la información del gimnasio en una sola plataforma, eliminando los registros manuales y reduciendo los errores administrativos.</p>
-      </header>
+        <p class="lead"> GymControl es un sistema de gestión y ventas para gimnasios que organiza inventarios, controla productos y agiliza cada operación con precisión y sencillez. Una herramienta confiable para mantener tu negocio en forma y en constante crecimiento.</p>
+            </header>
 
       <!-- Page Features -->
       <div class="row text-center">
@@ -54,11 +52,15 @@ Con GymControl, podrás centralizar toda la información del gimnasio en una sol
 		<!-- /.row -->
 
 	</div>
+  </div>
+  
+
 	<!-- /.container -->
 
 	<!-- Footer -->
-	<div th:include="socio\template_socio.html::footer">
+	<div th:include="administrador\template_admin.html::footer">
 	</div>
+  
 
 	<!-- Bootstrap core JavaScript -->
 	<script th:src="@{vendor/jquery/jquery.min.js}"></script>

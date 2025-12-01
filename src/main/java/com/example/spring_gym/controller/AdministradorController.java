@@ -1,6 +1,7 @@
 package com.example.spring_gym.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,9 +10,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.spring_gym.model.Inventario;
+import com.example.spring_gym.model.Socio;
 import com.example.spring_gym.model.Venta;
 import com.example.spring_gym.services.IInventarioService;
 import com.example.spring_gym.services.ISocioService;
@@ -39,7 +43,7 @@ public class AdministradorController {
 
 		List<Inventario> inventarios = inventarioService.findAll();
 		model.addAttribute("inventarios", inventarios);
-
+		model.addAttribute("page", "home");
 
 		return "administrador/home";
 	}
@@ -47,14 +51,33 @@ public class AdministradorController {
     @GetMapping("/socios")
 	public String socios(Model model) {
 		model.addAttribute("socios", socioService.findAll());
+		model.addAttribute("page", "socios");
 		return "administrador/socios";
 	}
 	
 	@GetMapping("/ventas")
 	public String ventas(Model model) {
 		model.addAttribute("ventas", ventaService.findAll());
+		model.addAttribute("page", "ventas");
+
 		return "administrador/ventas";
 	}
+    @GetMapping("/ventas/cambiarEstado/{id}")
+    public String cambiarEstado(@PathVariable Integer id) {
+        
+        Venta venta = ventaService.findById(id).orElse(null);
+
+        if (venta != null) {
+            venta.setEstado(
+                venta.getEstado().equals("PENDIENTE") ? "COMPLETA" : "PENDIENTE"
+            );
+            ventaService.save(venta);
+        }
+
+        return "redirect:/administrador/ventas";
+    }
+
+
 	
 	@GetMapping("/detalle/{id}")
 	public String detalle(Model model, @PathVariable Integer id) {
@@ -62,9 +85,53 @@ public class AdministradorController {
 		Venta venta= ventaService.findById(id).get();
 		
 		model.addAttribute("detalles", venta.getDetalles());
+		model.addAttribute("page", "detalle");
 		
 		return "administrador/detalleventa";
 	}
 	
+
+	
+// BUSCAR PRODUCTOS EN HOME
+@PostMapping("/searchProductos")
+public String searchProductos(@RequestParam String nombre, Model model) {
+
+    List<Inventario> inventarios = inventarioService.findAll().stream()
+            .filter(p -> p.getNombre().toLowerCase().contains(nombre.toLowerCase()))
+            .collect(Collectors.toList());
+
+    model.addAttribute("inventarios", inventarios);
+	model.addAttribute("page", "home");
+    return "administrador/home";
+}
+
+
+// BUSCAR SOCIOS EN socios.html
+@PostMapping("/searchSocios")
+public String searchSocios(@RequestParam String nombre, Model model) {
+
+    List<Socio> socios = socioService.findAll().stream()
+            .filter(s -> s.getNombre().toLowerCase().contains(nombre.toLowerCase()))
+            .collect(Collectors.toList());
+
+    model.addAttribute("socios", socios);
+	model.addAttribute("page", "socios");
+    return "administrador/socios";
+}
+
+
+// BUSCAR VENTAS POR NUMERO EN ventas.html
+@PostMapping("/searchVentas")
+public String searchVentas(@RequestParam String numero, Model model) {
+
+    List<Venta> ventas = ventaService.findAll().stream()
+            .filter(v -> v.getNumero().equals(numero))
+            .collect(Collectors.toList());
+
+    model.addAttribute("ventas", ventas);
+	model.addAttribute("page", "ventas");
+    return "administrador/ventas";
+}
+
 
 }

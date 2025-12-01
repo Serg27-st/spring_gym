@@ -22,6 +22,7 @@ public class Venta {
     private Date fechaCreacion;
 	private Date fechaRecibida;
     private double montoTotal;
+    private String estado;
  @OneToOne
     private Pago pago;
 
@@ -124,6 +125,14 @@ public double getMontoTotal() {
         sb.append(", detalle=").append(detalle);
         sb.append('}');
         return sb.toString();
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
    
